@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialColor = {
@@ -6,11 +6,11 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors, fetchColors }) => {
+const ColorList = ({ colors, updateColors }) => {
 
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
-
+  console.log(colors)
   const editColor = color => {
     setEditing(true);
     setColorToEdit(color);
@@ -23,7 +23,10 @@ const ColorList = ({ colors, updateColors, fetchColors }) => {
     // where is is saved right now?
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
-      .then(res => console.log(res.data))
+      .then(res => {
+        colors = colors.filter(color => color.id !== res.data.id)
+        updateColors([...colors, res.data])
+      })
       .catch(err => console.log('Ahhhh BUG', err));
   };
 
@@ -31,13 +34,16 @@ const ColorList = ({ colors, updateColors, fetchColors }) => {
     // make a delete request to delete this color
     axiosWithAuth()
       .delete(`/colors/${colorToEdit.id}`, color)
-      .then(res => console.log(res.data))
+      .then(res => {
+        updateColors(colors.filter(c => c.id !== color.id));
+        setEditing(false)
+      })
       .catch(err => console.log('Ahhhhh BUG', err));
   };
   if(!initialColor){
     return 'Loading Color Bubbles...'
-  } else {
-  fetchColors()
+  }else{
+    // fetchColors()
 
   return (
     <div className="colors-wrap">
@@ -91,7 +97,7 @@ const ColorList = ({ colors, updateColors, fetchColors }) => {
       <div className="spacer" />
       {/* stretch - build another form here to add a color */}
     </div>
-  );
-}};
+  )};
+};
 
 export default ColorList;

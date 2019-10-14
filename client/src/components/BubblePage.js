@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { Link, Route } from 'react-router-dom';
 
 import Bubbles from "./Bubbles";
@@ -10,16 +10,21 @@ const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
   // fetch your colors data from the server when the component mounts
   // set that data to the colorList state property
-  const fetchColors = () => {
-    axiosWithAuth()
-      .get(`/colors`)
-      .then(res => setColorList(res.data))
-      .catch(err => console.log('Ahhhh BUG', err));
-  };
+    useEffect(() => {
+      axiosWithAuth()
+        .get(`/colors`)
+        .then(res => {
+          setColorList(res.data)
+        })
+        .catch(err => console.log('Ahhhh BUG', err));
+           
+    }, [])
+
+// console.log(colorList)
 
   return (
     <>
-      <ColorList colors={colorList} updateColors={setColorList} fetchColors={fetchColors} />
+      <ColorList colors={colorList} updateColors={setColorList} />
       <Bubbles colors={colorList} />
     </>
   );
