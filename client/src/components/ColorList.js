@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialColor = {
   color: "",
@@ -7,9 +7,16 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
+  // console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+
+  const fetchColor = id => {
+    axiosWithAuth()
+      .get(`/colors`)
+      .then(res => updateColors(res.data))
+      .catch(err => console.log('Ahhhh BUG', err));
+  };
 
   const editColor = color => {
     setEditing(true);
@@ -27,6 +34,11 @@ const ColorList = ({ colors, updateColors }) => {
     // make a delete request to delete this color
   };
 
+  if(!initialColor){
+    return <div>Loading color...</div>
+  } else {
+    fetchColor();
+  
   return (
     <div className="colors-wrap">
       <p>colors</p>
@@ -80,6 +92,6 @@ const ColorList = ({ colors, updateColors }) => {
       {/* stretch - build another form here to add a color */}
     </div>
   );
-};
+}};
 
 export default ColorList;
