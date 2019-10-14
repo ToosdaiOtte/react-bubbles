@@ -6,17 +6,10 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
-  // console.log(colors);
+const ColorList = ({ colors, updateColors, fetchColors }) => {
+
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
-
-  const fetchColor = id => {
-    axiosWithAuth()
-      .get(`/colors`)
-      .then(res => updateColors(res.data))
-      .catch(err => console.log('Ahhhh BUG', err));
-  };
 
   const editColor = color => {
     setEditing(true);
@@ -33,18 +26,16 @@ const ColorList = ({ colors, updateColors }) => {
   const deleteColor = color => {
     // make a delete request to delete this color
   };
-
   if(!initialColor){
-    return <div>Loading color...</div>
+    return 'Loading Color Bubbles...'
   } else {
-    fetchColor();
-  
+  fetchColors()
   return (
     <div className="colors-wrap">
       <p>colors</p>
       <ul>
         {colors.map(color => (
-          <li key={color.color} onClick={() => editColor(color)}>
+          <li key={color.id} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={() => deleteColor(color)}>
                 x
