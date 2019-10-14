@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialColor = {
@@ -21,6 +21,10 @@ const ColorList = ({ colors, updateColors, fetchColors }) => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+    axiosWithAuth()
+      .put(`/colors/${colorToEdit.id}`, colorToEdit)
+      .then(res => console.log(res.data))
+      .catch(err => console.log('Ahhhh BUG', err));
   };
 
   const deleteColor = color => {
@@ -30,6 +34,7 @@ const ColorList = ({ colors, updateColors, fetchColors }) => {
     return 'Loading Color Bubbles...'
   } else {
   fetchColors()
+
   return (
     <div className="colors-wrap">
       <p>colors</p>
