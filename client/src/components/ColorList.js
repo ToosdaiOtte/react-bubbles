@@ -29,6 +29,10 @@ const ColorList = ({ colors, updateColors, fetchColors }) => {
 
   const deleteColor = color => {
     // make a delete request to delete this color
+    axiosWithAuth()
+      .delete(`/colors/${colorToEdit.id}`, color)
+      .then(res => console.log(res.data))
+      .catch(err => console.log('Ahhhhh BUG', err));
   };
   if(!initialColor){
     return 'Loading Color Bubbles...'
