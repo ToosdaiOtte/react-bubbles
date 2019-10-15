@@ -29,9 +29,21 @@ In this project you will create a login page and request a token from the server
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] Explain what a token is used for.
+
+  A token is used to provide proof that the client has permission (authentication) to access private routes (pages) in the react app. Tokens issued by the server are strings of cryptic text that can be stored using local storage.
+
 - [ ] What steps can you take in your web apps to keep your data secure?
+
+  Creat private routes only accessible with the correct login credentials connected to a token.
+
 - [ ] Describe how web servers work.
+
+  Web servers connect to the internet, locate a specific server computer through URL and domain name, and retrieve information and/or resources from that server.
+
 - [ ] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+
+  PUT is the 'U' - (Update) in CRUD. You use it to identify the data that you want to update/edit/change within the axios call.
+  DELETE is the 'D' in CRUD. Used to delete/remove information/data from within the axios call.
 
 
 ## Project Set Up

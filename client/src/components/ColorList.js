@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialColor = {
   color: "",
@@ -7,10 +7,10 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
+
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
-
+  console.log(colors)
   const editColor = color => {
     setEditing(true);
     setColorToEdit(color);
@@ -21,18 +21,36 @@ const ColorList = ({ colors, updateColors }) => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+    axiosWithAuth()
+      .put(`/colors/${colorToEdit.id}`, colorToEdit)
+      .then(res => {
+        colors = colors.filter(color => color.id !== res.data.id)
+        updateColors([...colors, res.data])
+      })
+      .catch(err => console.log('Ahhhh BUG', err));
   };
 
   const deleteColor = color => {
     // make a delete request to delete this color
+    axiosWithAuth()
+      .delete(`/colors/${colorToEdit.id}`, color)
+      .then(res => {
+        updateColors(colors.filter(c => c.id !== color.id));
+        setEditing(false)
+      })
+      .catch(err => console.log('Ahhhhh BUG', err));
   };
+  if(!initialColor){
+    return 'Loading Color Bubbles...'
+  }else{
+    // fetchColors()
 
   return (
     <div className="colors-wrap">
       <p>colors</p>
       <ul>
         {colors.map(color => (
-          <li key={color.color} onClick={() => editColor(color)}>
+          <li key={color.id} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={() => deleteColor(color)}>
                 x
@@ -47,6 +65,7 @@ const ColorList = ({ colors, updateColors }) => {
         ))}
       </ul>
       {editing && (
+        <div className='edit-form'>
         <form onSubmit={saveEdit}>
           <legend>edit color</legend>
           <label>
@@ -75,11 +94,12 @@ const ColorList = ({ colors, updateColors }) => {
             <button onClick={() => setEditing(false)}>cancel</button>
           </div>
         </form>
+        </div>
       )}
       <div className="spacer" />
       {/* stretch - build another form here to add a color */}
     </div>
-  );
+  )};
 };
 
 export default ColorList;
