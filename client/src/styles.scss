@@ -14,25 +14,62 @@ body,
   font-family: "Montserrat", sans-serif;
   text-align: center;
   display: flex;
+  flex-direction: column;
 
   svg {
     height: 100%;
   }
 }
 
-.spacer {
-  height: 100%;
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+
+  .nav-link {
+    text-decoration: none;
+    font-size: 1.6rem;
+
+    &:hover {
+      color: #830404;
+    }
+  }
+  
 }
 
-.bubble-wrap {
-  margin: 0 auto;
+// .spacer {
+//   height: 100%;
+// }
+
+.bubble-page {
   display: flex;
-  flex-direction: column;
 }
+  
+// .bubble-wrap {
+//   margin: 0 auto;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+  .delete {
+    color: rgb(216, 87, 87);
+  }
+
+  .color-box {
+    height: 16px;
+    width: 16px;
+    border: 1px lightgray solid;
+    margin-right: 36px;
+  }
 
 .colors-wrap {
-  height: 100%;
-  width: 300px;
+  // height: 100%;
+  // width: 200px;
+  margin: 0 auto;
+  width: 50%;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   ul {
@@ -49,22 +86,17 @@ body,
   }
 }
 
-.delete {
-  color: rgb(216, 87, 87);
-}
 
-.color-box {
-  height: 16px;
-  width: 16px;
-  border: 1px lightgray solid;
-  margin-right: 36px;
-}
+.edit-form {
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-bottom: 10%;
+  width: 50%;
 
-form {
-  margin-top: 60px;
+
+  form {
   display: flex;
   flex-direction: column;
-
   legend {
     padding-left: 40px;
     font-weight: bold;
@@ -83,6 +115,9 @@ form {
     width: 100px;
   }
 }
+}
+
+
 
 .button-row {
   display: flex;
@@ -96,4 +131,24 @@ form {
     padding: 3px 8px;
     margin-top: 16px;
   }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input {
+    margin-bottom: 10%;
+  }
+}
+.color-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input {
+    margin-bottom: 30%;
+  }
+
 }

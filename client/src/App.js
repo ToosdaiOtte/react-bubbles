@@ -16,9 +16,9 @@ function App() {
     <Router>
       <div className="App">
         <nav>
-          <Link to="/login">Login</Link>
-          <Link to="/protected">Bubbles Page</Link>
-          <Link to='/color-form'>Add Color</Link>             
+          <Link to="/login" className='nav-link'>Login</Link>
+          <Link to="/protected" className='nav-link'>Bubbles Page</Link>
+          <Link to='/color-form' className='nav-link'>Add Bubble</Link>             
         </nav>
         <Switch>
           <PrivateRoute exact path="/protected" 

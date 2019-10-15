@@ -58,7 +58,7 @@ const ColorForm = ({history}) => {
                         placeholder='Color Name'
                         value={color.color}
                         onChange={handleChanges}
-                    />
+                    /><br />
                     Hex Code: 
                     <input
                         type='text'
@@ -66,7 +66,7 @@ const ColorForm = ({history}) => {
                         placeholder='Hex Code'
                         value={color.code.hex}
                         onChange={handleChanges}
-                    />
+                    /><br />
                     <button>Add</button>
                 </form>
             </div>

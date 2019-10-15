@@ -65,6 +65,7 @@ const ColorList = ({ colors, updateColors }) => {
         ))}
       </ul>
       {editing && (
+        <div className='edit-form'>
         <form onSubmit={saveEdit}>
           <legend>edit color</legend>
           <label>
@@ -93,6 +94,7 @@ const ColorList = ({ colors, updateColors }) => {
             <button onClick={() => setEditing(false)}>cancel</button>
           </div>
         </form>
+        </div>
       )}
       <div className="spacer" />
       {/* stretch - build another form here to add a color */}
